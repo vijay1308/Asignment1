@@ -26,10 +26,11 @@ class PrintNumberWords
     end  
 
     matches.each do |key, array|
-      next if array.first.blank? || array.last.blank?
-      array.first.product(array.last).each do |words|
-        get_strings << words
-      end
+     unless (array.first.blank? || array.last.blank?)
+	      array.first.product(array.last).each do |words|
+	        get_strings << words
+	      end
+    	end
     end
 
 
