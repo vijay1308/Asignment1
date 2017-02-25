@@ -9,9 +9,9 @@ class AssignmentsController < ApplicationController
 	  	 @error_message =  "Number should be between 2 to 9"
 	  	return @error_message 
     else
-	 		@combination_string ,@word_combinations = PrintNumberWords.get_strings_from_number(params[:number]) if params[:number]	
+	 		@word_combinations = PrintNumberWords.get_strings_from_number(params[:number]) if params[:number]	
     end
-   return @combination_string ,@word_combinations
+   return @word_combinations
 	end
 
 end

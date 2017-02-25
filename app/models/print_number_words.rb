@@ -1,52 +1,33 @@
-class PrintNumberWords 
-
-
-	# def initialize(a)
- #    #@number = "1234567892"
- #    @number = a
- #  end
+class PrintNumberWords
 
   def self.get_strings_from_number(number)
-  	digit_letters = {"2" => ['A','B','C'],"3" => ['D','E','F'],"4" => ['G','H','I'],"5" => ['J','K','L'],
-  	  	 									"6" => ['M','N','O'],"7" => ['P','Q','R','S'],"8" => ['T','U','V'],"9" => ['W','X','Y','Z']}
+    digit_letters =  {"2" => ['A','B','C'],"3" => ['D','E','F'],"4" => ['G','H','I'],"5" => ['J','K','L'],
+  	  	 						"6" => ['M','N','O'],"7" => ['P','Q','R','S'],"8" => ['T','U','V'],"9" => ['W','X','Y','Z']}
 
+    # Read dictionary file and hold all values in a array
     dictionary = []
-    file_path = Rails.root.join("dictionary.txt")
+    file_path = Rails.root.join("db","dictionary.txt")
     File.foreach( file_path ) do |word|
       dictionary.push word.chop.to_s
     end
+    get_strings = []
+    words = number.chars.map{|digit|digit_letters[digit]}
+    get_strings << (words.shift.product(*words).map(&:join) & dictionary).join(", ")
+
+    results = {}
+    total_number = words.length - 1
     
-    puts number
-    number_array = number.split('')
-    number_letters = number_array.map{|digit|digit_letters[digit]}
-    combination_string = printcombinations(number_letters)
-    combination_string = combination_string.select {|word| word.length >=3}
-    return combination_string ,(combination_string & dictionary)
-  end
-
-
-  def self.printcombinations(number_letters)
-	   string, words = [] ,[]
-	    if number_letters.present?
-	      number_letters.each do |letters|
-	        if words.blank?
-	          words = letters
-	        else
-	          string = words.dup
-	          words = words.product(letters).map(&:join)
-	          words.flatten!
-	          words << string
-	          words.flatten!
-	        end
-	      end
-	    end
-    return words
+    for i in (2..total_number)
+      array1 = words[0..i]
+      array2 = words[i + 1..total_number]
+      if !(array1.length < 3 || array2.length < 3)
+      	combination_first = array1.shift.product(*array1).map(&:join)
+      	combination_last = array2.shift.product(*array2).map(&:join) 
+      	get_strings <<  [(combination_first & dictionary), (combination_last & dictionary)] 
+      end
+    end  
+    
+    get_strings
   end
 
 end
-
-# a= PrintNumberwords.new()
-# a.get_numbers(1234567892)
-
-
-
