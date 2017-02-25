@@ -1,7 +1,7 @@
 class AssignmentsController < ApplicationController
 
 	def index
-		@error_message = nil
+		@error_message, @word_combinations = nil,nil
 	  if params[:number].present? && params[:number].length != 10
 	  	  @error_message =  "Enter 10 digit number between 2 to 9 "
 	  	return @error_message   
@@ -9,10 +9,9 @@ class AssignmentsController < ApplicationController
 	  	 @error_message =  "Number should be between 2 to 9"
 	  	return @error_message 
     else
-	 		@print_numbers = PrintNumberWords.get_strings_from_number(params[:number]) if params[:number]	
-    	return @print_numbers
+	 		@combination_string ,@word_combinations = PrintNumberWords.get_strings_from_number(params[:number]) if params[:number]	
     end
-
+   return @combination_string ,@word_combinations
 	end
 
 end
