@@ -1,7 +1,6 @@
 <%= form_tag(assignments_path, method: "get") do %>
-  <p>
-   <%= "Enter 10 digit number between 2 to 9 "%>
-  </p>
+  <%= @error_message  %>
+ 
   <p>
     <%= "Enter Number" %><br>
     <%= number_field_tag 'number', nil%>
