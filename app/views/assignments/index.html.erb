@@ -1,0 +1,19 @@
+<%= form_tag(assignments_path, method: "get") do %>
+  <p>
+   <%= "Enter 10 digit number between 2 to 9 "%>
+  </p>
+  <p>
+    <%= "Enter Number" %><br>
+    <%= number_field_tag 'number', nil%>
+  </p>
+ 
+  <p>
+    <%= submit_tag("Submit", :name=>"submit") %>
+  </p>
+<% end %>
+
+
+<% if @print_numbers.present? %>
+ <%= @print_numbers%>
+<% end%>
+
